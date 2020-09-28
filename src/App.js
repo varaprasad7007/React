@@ -9,14 +9,48 @@ class App extends Component {
       {name: 'sai', age:24}
     ]
   }
+
+switchNameHandler = (gun) => {
+  this.setState({                   
+    persons:[                      
+      {name: gun, age:24},           
+      {name: 'chowdhary', age:25},
+      {name: 'saidu', age:26}
+    ]
+  })
+}
+
+nameChangedHandler= (event) => {
+  this.setState({
+    persons: [
+      {name: event.tart, age:23},
+      {name: event.target.value, age:24},
+      {name: 'sai', age:24}
+    ]
+  })
+}
+
   render() {
     return (
       <div className="App">
        <h1>hi, I am React </h1>
        <p> this app is working paragraph</p>
-       <Person name = {this.state.persons[0].name} age = {this.state.persons[0].age}/>
-       <Person name = {this.state.persons[1].name} age = {this.state.persons[0].age}>My Hobbies: Racing</Person>
-       <Person name = {this.state.persons[2].name} age = {this.state.persons[0].age}/>
+       <button onClick={() => this.switchNameHandler('rajshekar')}>switch Name</button>
+       <Person 
+       name = {this.state.persons[0].name} 
+       age = {this.state.persons[0].age}/>
+       
+       <Person 
+       name = {this.state.persons[1].name} 
+       age = {this.state.persons[0].age}
+       changed = {this.nameChangedHandler}>My Hobbies: Racing</Person>
+       
+       <Person 
+       name = {this.state.persons[2].name}
+      age = {this.state.persons[0].age}
+      click = {this.switchNameHandler.bind(this, 'nagarjun')}
+      // changed = {this.nameChangedHandler}
+      />
 
       </div>
     );

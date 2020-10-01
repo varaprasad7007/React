@@ -20,7 +20,7 @@ class App extends Component {
       persons: [
         { name: newName, age: 28 },
         { name: 'Manu', age: 29 },
-        { name: 'Stephanie', age: 27 }
+        { name: 'Stephanie', age: 27 }      
       ]
     } )
   }
@@ -53,7 +53,13 @@ class App extends Component {
     if( this.state.showPersons ) {
       some = (
         <div>
-           <Person
+
+          {this.state.persons.map(ip => {
+            return <Person
+            name={ip.name}
+            age={ip.age} />
+          })}
+           {/* <Person
             name={this.state.persons[0].name}
             age={this.state.persons[0].age} />
           <Person
@@ -63,17 +69,17 @@ class App extends Component {
             changed={this.nameChangedHandler} >My Hobbies: Racing</Person>
           <Person
             name={this.state.persons[2].name}
-            age={this.state.persons[2].age} />
+            age={this.state.persons[2].age} />   */}
         </div>
       );
     }
-    
+                      
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        <button
-          style={style}
+        <button  
+          style={style}  
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
           {some}
       </div>

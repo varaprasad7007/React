@@ -48,9 +48,10 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer'
     };
-    let persons = null;
+
+    let some = null;
     if( this.state.showPersons ) {
-      persons = (
+      some = (
         <div>
            <Person
             name={this.state.persons[0].name}
@@ -74,7 +75,7 @@ class App extends Component {
         <button
           style={style}
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
-          {persons}
+          {some}
       </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));

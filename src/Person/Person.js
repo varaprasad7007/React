@@ -11,5 +11,5 @@ const person = ( props ) => {
         </div>
     )
 };
-
-export default person;
+                                                                                  
+export default person; 

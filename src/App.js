@@ -5,34 +5,38 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Max', age: 28 },
-      { name: 'Manu', age: 29 },
-      { name: 'Stephanie', age: 26 }
+      { id: 'asfa1', name: 'Max', age: 28 },
+      { id: 'vasdf1', name: 'Manu', age: 29 },
+      { id: 'asdf11', name: 'Stephanie', age: 26 }
     ],
     otherState: 'some other value',
     showPersons: false
   }
 
-  switchNameHandler = ( newName ) => {
-    // console.log('Was clicked!');
-    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
-    this.setState( {
-      persons: [
-        { name: newName, age: 28 },
-        { name: 'Manu', age: 29 },
-        { name: 'Stephanie', age: 27 }      
-      ]
-    } )
+  nameChangedHandler = ( event, id ) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    // const person = Object.assign({}, this.state.persons[personIndex]);
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState( {persons: persons} );
   }
 
-  nameChangedHandler = ( event ) => {
-    this.setState( {
-      persons: [
-        { name: 'Max', age: 28 },
-        { name: event.target.value, age: 29 },
-        { name: 'Stephanie', age: 26 }
-      ]
-    } )
+  deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({persons: persons});
   }
 
   togglePersonsHandler = () => {
@@ -49,39 +53,31 @@ class App extends Component {
       cursor: 'pointer'
     };
 
-    let some = null;
-    if( this.state.showPersons ) {
-      some = (
-        <div>
+    let info = null;
 
-          {this.state.persons.map(ip => {
+    if ( this.state.showPersons ) {
+      info = (
+        <div>
+          {this.state.persons.map((ip, index) => {
             return <Person
-            name={ip.name}
-            age={ip.age} />
+              click={() => this.deletePersonHandler(index)}
+              name={ip.name} 
+              age={ip.age}
+              key={ip.id}
+              changed={(event) => this.nameChangedHandler(event, ip.id)} />
           })}
-           {/* <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age} />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind( this, 'Max!' )}
-            changed={this.nameChangedHandler} >My Hobbies: Racing</Person>
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age} />   */}
         </div>
       );
     }
-                      
+
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        <button  
-          style={style}  
+        <button
+          style={style}
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
-          {some}
+        {info}
       </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
@@ -89,24 +85,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-// let persons = null;
-
-//     if ( this.state.showPersons ) {
-//       persons = (
-//         <div>
-//           <Person
-//             name={this.state.persons[0].name}
-//             age={this.state.persons[0].age} />
-//           <Person
-//             name={this.state.persons[1].name}
-//             age={this.state.persons[1].age}
-//             click={this.switchNameHandler.bind( this, 'Max!' )}
-//             changed={this.nameChangedHandler} >My Hobbies: Racing</Person>
-//           <Person
-//             name={this.state.persons[2].name}
-//             age={this.state.persons[2].age} />
-//         </div>
-//       );
-//     }
